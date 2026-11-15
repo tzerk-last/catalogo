@@ -1,3 +1,8 @@
+// Integrantes del equipo:
+// - Juan David González Reyes
+// - Wen
+// - Kevin Andrés Jaramillo Puerta
+
 import java.util.Scanner;
 
 public class Main {
