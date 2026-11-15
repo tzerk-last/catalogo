@@ -79,7 +79,7 @@ public class Main {
         System.out.println("Nombre: Catálogo de Películas");
         System.out.println("Lenguaje: Java");
         System.out.println("Tipo: Aplicación de consola");
-        System.out.println("Equipo: Integrante 1, Integrante 2, Integrante 3, Integrante 4");
+        System.out.println("Equipo: Juan David González Reyes, Wen, Kevin Andrés Jaramillo Puerta");
     }
 
     // =====================================================================
@@ -95,7 +95,7 @@ public class Main {
         String titulo = leerTexto("Título: ");
         String director = leerTexto("Director: ");
         String genero = leerTexto("Género: ");
-        int anio = leerEntero("Año: ");
+        int anio = leerAnio("Año: ");
         double calificacion = leerCalificacion("Calificación (0 a 10): ");
 
         // Se guarda en la siguiente posición libre de los arrays
@@ -218,7 +218,7 @@ public class Main {
         String texto;
         do {
             System.out.print(mensaje);
-            texto = scanner.nextLine().trim();
+            texto = leerLinea().trim();
             if (texto.isEmpty()) {
                 System.out.println("El campo no puede estar vacío.");
             }
@@ -230,7 +230,7 @@ public class Main {
     static int leerEntero(String mensaje) {
         while (true) {
             System.out.print(mensaje);
-            String entrada = scanner.nextLine().trim();
+            String entrada = leerLinea().trim();
             try {
                 return Integer.parseInt(entrada);
             } catch (NumberFormatException e) {
@@ -239,11 +239,31 @@ public class Main {
         }
     }
 
+    // Lee una línea completa; si la entrada se cerró (Ctrl+D / fin de archivo), termina el programa
+    static String leerLinea() {
+        if (!scanner.hasNextLine()) {
+            System.out.println("\nNo hay más entrada. Saliendo del programa.");
+            System.exit(0);
+        }
+        return scanner.nextLine();
+    }
+
+    // Pide un año entre 1888 (primera película de la historia) y 2100
+    static int leerAnio(String mensaje) {
+        while (true) {
+            int anio = leerEntero(mensaje);
+            if (anio >= 1888 && anio <= 2100) {
+                return anio;
+            }
+            System.out.println("El año debe estar entre 1888 y 2100.");
+        }
+    }
+
     // Pide una calificación decimal entre 0 y 10 (acepta coma o punto)
     static double leerCalificacion(String mensaje) {
         while (true) {
             System.out.print(mensaje);
-            String entrada = scanner.nextLine().trim().replace(',', '.');
+            String entrada = leerLinea().trim().replace(',', '.');
             try {
                 double valor = Double.parseDouble(entrada);
                 if (valor >= 0 && valor <= 10) {
