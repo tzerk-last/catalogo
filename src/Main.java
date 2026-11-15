@@ -1,18 +1,5 @@
 import java.util.Scanner;
 
-/*
- * Taller: Catálogo de Películas en Java
- *
- * Programa de consola con un menú CRUD para administrar películas.
- * Los datos se guardan en arrays paralelos: la posición i de cada array
- * corresponde a la misma película.
- *
- * Reparto de trabajo (cada integrante escribe y prueba su parte):
- *   Integrante 1 -> Menú y navegación        (main, mostrarMenu, mostrarInformacion)
- *   Integrante 2 -> Registro y visualización (agregarPelicula, mostrarPeliculas, mostrarPelicula)
- *   Integrante 3 -> Búsqueda y modificación  (buscarIndice, buscarPelicula, modificarPelicula)
- *   Integrante 4 -> Eliminación y validación (eliminarPelicula, leerTexto, leerEntero, leerCalificacion)
- */
 public class Main {
 
     // =====================================================================
