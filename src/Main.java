@@ -419,3 +419,86 @@ static int buscarIndice(String titulo) {
         calificaciones[i] = leerCalificacion("Nueva calificación (0 a 10): ");
         System.out.println("Calificación actualizada.");
     }
+static void eliminarPelicula() {
+        System.out.println("--- Eliminar película ---");
+        String titulo = leerTexto("Título de la película a eliminar: ");
+        int i = buscarIndice(titulo);
+
+        if (i == -1) {
+            System.out.println("Película no encontrada.");
+            return;
+        }
+
+        mostrarPelicula(i);
+        int confirmacion = leerEntero("¿Confirma la eliminación? 1. Sí  2. No: ");
+        if (confirmacion != 1) {
+            System.out.println("Eliminación cancelada.");
+            return;
+        }
+
+        // Se corren las películas siguientes una posición hacia atrás
+        for (int j = i; j < cantidad - 1; j++) {
+            titulos[j] = titulos[j + 1];
+            directores[j] = directores[j + 1];
+            generos[j] = generos[j + 1];
+            anios[j] = anios[j + 1];
+            calificaciones[j] = calificaciones[j + 1];
+        }
+
+        // Se limpia la última posición que quedó repetida
+        cantidad--;
+        titulos[cantidad] = null;
+        directores[cantidad] = null;
+        generos[cantidad] = null;
+        anios[cantidad] = 0;
+        calificaciones[cantidad] = 0.0;
+
+        System.out.println("Película eliminada correctamente.");
+    }
+
+    // --- Validaciones de entrada (las usan todos los integrantes) ---
+
+    // Pide un texto y no acepta vacío
+    static String leerTexto(String mensaje) {
+        String texto;
+        do {
+            System.out.print(mensaje);
+            texto = scanner.nextLine().trim();
+            if (texto.isEmpty()) {
+                System.out.println("El campo no puede estar vacío.");
+            }
+        } while (texto.isEmpty());
+        return texto;
+    }
+
+    // Pide un número entero y repite hasta que sea válido
+    static int leerEntero(String mensaje) {
+        while (true) {
+            System.out.print(mensaje);
+            String entrada = scanner.nextLine().trim();
+            try {
+                return Integer.parseInt(entrada);
+            } catch (NumberFormatException e) {
+                System.out.println("Debe ingresar un número entero.");
+            }
+        }
+    }
+
+    // Pide una calificación decimal entre 0 y 10 (acepta coma o punto)
+    static double leerCalificacion(String mensaje) {
+        while (true) {
+            System.out.print(mensaje);
+            String entrada = scanner.nextLine().trim().replace(',', '.');
+            try {
+                double valor = Double.parseDouble(entrada);
+                if (valor >= 0 && valor <= 10) {
+                    return valor;
+                }
+                System.out.println("La calificación debe estar entre 0 y 10.");
+            } catch (NumberFormatException e) {
+                System.out.println("Debe ingresar un número válido.");
+            }
+        }
+    }
+}
+
