@@ -349,3 +349,73 @@ public class Main {
         }
     }
 }
+static void agregarPelicula() {
+        if (cantidad >= CAPACIDAD) {
+            System.out.println("No hay espacio para más películas (máximo " + CAPACIDAD + ").");
+            return;
+        }
+
+        System.out.println("--- Agregar película ---");
+        String titulo = leerTexto("Título: ");
+        String director = leerTexto("Director: ");
+        String genero = leerTexto("Género: ");
+        int anio = leerEntero("Año: ");
+        double calificacion = leerCalificacion("Calificación (0 a 10): ");
+
+        // Se guarda en la siguiente posición libre de los arrays
+        titulos[cantidad] = titulo;
+        directores[cantidad] = director;
+        generos[cantidad] = genero;
+        anios[cantidad] = anio;
+        calificaciones[cantidad] = calificacion;
+        cantidad++;
+
+        System.out.println("Película agregada correctamente.");
+    }
+
+    static void mostrarPeliculas() {
+        if (cantidad == 0) {
+            System.out.println("No hay películas registradas.");
+            return;
+        }
+
+        System.out.println("--- Películas registradas ---");
+        for (int i = 0; i < cantidad; i++) {
+            mostrarPelicula(i);
+        }
+    }
+static int buscarIndice(String titulo) {
+        for (int i = 0; i < cantidad; i++) {
+            if (titulos[i].equalsIgnoreCase(titulo)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    static void buscarPelicula() {
+        System.out.println("--- Buscar película ---");
+        String titulo = leerTexto("Título a buscar: ");
+        int i = buscarIndice(titulo);
+
+        if (i == -1) {
+            System.out.println("Película no encontrada.");
+        } else {
+            mostrarPelicula(i);
+        }
+    }
+
+    static void modificarPelicula() {
+        System.out.println("--- Modificar calificación ---");
+        String titulo = leerTexto("Título de la película a modificar: ");
+        int i = buscarIndice(titulo);
+
+        if (i == -1) {
+            System.out.println("Película no encontrada.");
+            return;
+        }
+
+        mostrarPelicula(i);
+        calificaciones[i] = leerCalificacion("Nueva calificación (0 a 10): ");
+        System.out.println("Calificación actualizada.");
+    }
